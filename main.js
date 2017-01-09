@@ -5,6 +5,8 @@ let inventory = [
 ]
 
 // your code, here
+let productDiv = document.getElementById('all-products')
+
 class Product {
   constructor(id, quantity, name, url, desc) {
     this.id = id;
@@ -13,10 +15,27 @@ class Product {
     this.url = url;
     this.desc = desc;
   }
-  sell = () => {
-
+  sell() {
+    return this.quantity -= 1;
   }
-  toHTML = () => {
+  toHTML() {
+    return `
+    <div class="product">
+      <h1>Product Name: ${this.name}</h1>
+      <h5>${this.quantity} In Stock</h5>
+      <img src="${this.url}" alt="${this.id}" />
 
+    <h3>Description</h3>
+      <p>
+      ${this.desc}.
+      </p>
+    </div>
+    `;
   }
 }
+
+let products = inventory.map((inv) => new Product(...inv));
+
+products.forEach((product) => {
+  productDiv.innerHTML += product.toHTML()
+})
